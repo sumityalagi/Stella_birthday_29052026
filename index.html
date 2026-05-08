@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Stella 💖</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Fonts: Cormorant Garamond (display) + Dancing Script (letter) + Jost (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Dancing+Script:wght@400;600;700&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════
+       PARTICLE CANVAS (Stars + Hearts background)
+  ════════════════════════════════════════════════════ -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- ═══════════════════════════════════════════════════
+       CONFETTI CANVAS (fires when surprise is opened)
+  ════════════════════════════════════════════════════ -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- No background music — video section handles media -->
+
+  <!-- ═══════════════════════════════════════════════════
+       NAVIGATION
+  ════════════════════════════════════════════════════ -->
+  <nav class="nav" id="navbar">
+    <div class="nav-brand">✦ Stella ✦</div>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#countdown">Countdown</a></li>
+      <li><a href="#gallery">Memories</a></li>
+      <li><a href="#letter">Letter</a></li>
+      <li><a href="#player">Video</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION 1 — HERO
+  ════════════════════════════════════════════════════ -->
+  <section id="hero" class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal-up">✦ &nbsp; A little corner of the internet &nbsp; ✦</p>
+      <h1 class="hero-title reveal-up delay-1">
+        Happy Birthday<br />
+        <span class="gradient-text">Stella</span>
+        <span class="heart-bounce">💖</span>
+      </h1>
+      <p class="hero-subtitle reveal-up delay-2" id="typingTarget"></p>
+      <div class="hero-cta reveal-up delay-3">
+        <button class="btn-surprise glow-pulse" id="surpriseBtn">
+          <span>Open Your Surprise</span>
+          <span class="btn-sparkle">✨</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Decorative floating orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION 2 — COUNTDOWN TIMER
+  ════════════════════════════════════════════════════ -->
+  <section id="countdown" class="countdown-section section-pad">
+    <div class="section-header">
+      <p class="section-tag">✦ marking the moments ✦</p>
+      <h2 class="section-title">Until Your Special Day</h2>
+    </div>
+
+    <!-- Normal countdown display -->
+    <div class="countdown-grid" id="countdownGrid">
+      <div class="glass-card countdown-card">
+        <span class="count-num" id="days">00</span>
+        <span class="count-label">Days</span>
+        <div class="card-glow"></div>
+      </div>
+      <div class="glass-card countdown-card">
+        <span class="count-num" id="hours">00</span>
+        <span class="count-label">Hours</span>
+        <div class="card-glow"></div>
+      </div>
+      <div class="glass-card countdown-card">
+        <span class="count-num" id="minutes">00</span>
+        <span class="count-label">Minutes</span>
+        <div class="card-glow"></div>
+      </div>
+      <div class="glass-card countdown-card">
+        <span class="count-num" id="seconds">00</span>
+        <span class="count-label">Seconds</span>
+        <div class="card-glow"></div>
+      </div>
+    </div>
+
+    <!-- Birthday message (shown when countdown hits zero) -->
+    <div class="birthday-message hidden" id="birthdayMessage">
+      <div class="bday-glow-ring"></div>
+      <h2 class="bday-text">It's Your Day Stella 🎉</h2>
+      <p class="bday-sub">The stars aligned just for you today. ✨</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION 3 — MEMORY GALLERY
+  ════════════════════════════════════════════════════ -->
+  <section id="gallery" class="gallery-section section-pad">
+    <div class="section-header">
+      <p class="section-tag">✦ our story ✦</p>
+      <h2 class="section-title">Memories We've Made</h2>
+      <p class="section-desc">Every photo is a moment I never want to forget.</p>
+    </div>
+
+    <div class="gallery-grid">
+      <!--
+        📸 HOW TO ADD YOUR PHOTOS:
+        1. Create a folder called "images" in the same directory as index.html
+        2. Add your photos (jpg, png, webp) to that folder
+        3. Replace the placeholder divs below with:
+           <img src="images/your-photo-name.jpg" alt="Caption here" />
+        4. You can also just change the data-src attribute on each .photo-placeholder div
+        Example: <div class="photo-card" data-src="images/photo1.jpg" data-caption="Our Favorite Memory">
+      -->
+
+      
+<div class="photo-card" data-src="images/test.jpg" data-caption="Our Favorite Memory">
+  <div class="photo-placeholder">
+    <img src="images/test.jpg" alt="Our Favorite Memory">
+  </div>
+  <div class="photo-overlay">
+    <p class="photo-caption">Our Favorite Memory</p>
+  </div>
+</div>
+
+<div class="photo-card featured" data-src="images/test.jpg" data-caption="That Funny Day">
+  <div class="photo-placeholder">
+    <img src="images/test.jpg" alt="That Funny Day">
+  </div>
+  <div class="photo-overlay">
+    <p class="photo-caption">That Funny Day 😂</p>
+  </div>
+</div>
+
+<div class="photo-card" data-src="images/test.jpg" data-caption="Forever Friends">
+  <div class="photo-placeholder">
+    <img src="images/test.jpg" alt="Forever Friends">
+  </div>
+  <div class="photo-overlay">
+    <p class="photo-caption">Forever Friends 💫</p>
+  </div>
+</div>
+
+<div class="photo-card" data-src="images/test.jpg" data-caption="The Best Nights">
+  <div class="photo-placeholder">
+    <img src="images/test.jpg" alt="The Best Nights">
+  </div>
+  <div class="photo-overlay">
+    <p class="photo-caption">The Best Nights 🌙</p>
+  </div>
+</div>
+
+<div class="photo-card" data-src="images/test.jpg" data-caption="Pure Happiness">
+  <div class="photo-placeholder">
+    <img src="images/test.jpg" alt="Pure Happiness">
+  </div>
+  <div class="photo-overlay">
+    <p class="photo-caption">Pure Happiness ✨</p>
+  </div>
+</div>
+
+<div class="photo-card featured" data-src="images/photo6.jpg" data-caption="Us, Always">
+  <div class="photo-placeholder">
+    <img src="images/test.jpg" alt="Us, Always">
+  </div>
+  <div class="photo-overlay">
+    <p class="photo-caption">Us, Always 💕</p>
+  </div>
+</div>
+
+<div class="photo-card" data-src="images/test.jpg" data-caption="Laughing Until We Cried">
+  <div class="photo-placeholder">
+    <img src="images/test.jpg" alt="Laughing Until We Cried">
+  </div>
+  <div class="photo-overlay">
+    <p class="photo-caption">Laughing Until We Cried 🤣</p>
+  </div>
+</div>
+
+<div class="photo-card" data-src="images/test.jpg" data-caption="A Perfect Day">
+  <div class="photo-placeholder">
+    <img src="images/test.jpg" alt="A Perfect Day">
+  </div>
+  <div class="photo-overlay">
+    <p class="photo-caption">A Perfect Day 🌸</p>
+  </div>
+</div>
+
+
+    <!-- Lightbox -->
+    <div class="lightbox hidden" id="lightbox">
+      <button class="lightbox-close" id="lightboxClose">✕</button>
+      <div class="lightbox-inner">
+        <img src="" alt="" id="lightboxImg" />
+        <p class="lightbox-caption" id="lightboxCaption"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION 4 — LETTER
+  ════════════════════════════════════════════════════ -->
+  <section id="letter" class="letter-section section-pad">
+    <div class="section-header">
+      <p class="section-tag">✦ from the heart ✦</p>
+      <h2 class="section-title">A Letter For You</h2>
+    </div>
+
+    <div class="letter-wrapper">
+      <div class="letter-paper glass-card">
+        <div class="letter-deco-top">✦ &ensp; ✦ &ensp; ✦</div>
+
+        <!-- ✏️ EDIT THIS LETTER — Replace the text below with your own heartfelt words! -->
+        <p class="letter-date">May 29th, 2026</p>
+
+        <p class="letter-greeting">My dearest Stella,</p>
+
+        <p class="letter-body">
+          Where do I even begin? Some people come into your life and quietly rearrange everything —
+          they become the soundtrack to your best days, the voice on the other end of the phone at 2am,
+          the person who knows what you mean before you finish your sentence.
+          That's you, Stella. That has always been you.
+        </p>
+
+        <p class="letter-body">
+          I think about all the moments we've shared — the ridiculous ones, the serious ones,
+          the ones where we laughed until breathing felt optional — and I feel so incredibly lucky
+          that the universe decided we should find each other. Not everyone gets a friend like you.
+          I know how rare this is.
+        </p>
+
+        <p class="letter-body">
+          So on this birthday, I want you to know something, truly:
+          you are one of the most beautiful, brilliant, and kind souls I have ever met.
+          The world is genuinely better with you in it. <em>I</em> am better with you in it.
+        </p>
+
+        <p class="letter-body">
+          May this year bring you everything your heart has quietly been wishing for.
+          May you be surprised, celebrated, and loved beyond measure.
+          And may you always, always know how deeply you are cherished.
+        </p>
+
+        <p class="letter-closing">
+          With all my love, always,
+        </p>
+        <p class="letter-signature">
+          Sumit💖
+        </p>
+        
+
+        <div class="letter-deco-bottom">✦ &ensp; ✦ &ensp; ✦</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       SECTION 5 — VIDEO PLAYER
+  ════════════════════════════════════════════════════ -->
+  <section id="player" class="player-section section-pad">
+    <div class="section-header">
+      <p class="section-tag">✦ a moment in time ✦</p>
+      <h2 class="section-title">A Video For You</h2>
+      <p class="section-desc">Press play and let the memories roll. 🎞️</p>
+    </div>
+
+    <div class="vplayer-wrapper">
+      <div class="vplayer-card glass-card">
+
+        <!--
+          🎬 VIDEO SETUP:
+          1. Create a folder called "video" next to index.html
+          2. Add your video file and rename it to: stella-video.mp4
+          3. Optionally add a poster image: video/stella-poster.jpg
+             (shown as thumbnail before the video plays)
+          Supported formats: .mp4 (recommended), .webm
+          Full path: video/stella-video.mp4
+        -->
+
+        <!-- Video element -->
+        <div class="vplayer-screen-wrap" id="vScreenWrap">
+          <video
+            id="stellaVideo"
+            class="vplayer-video"
+            preload="metadata"
+            poster="video/stella-poster.jpg"
+            playsinline
+          >
+            <source src="video/stella-video.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+
+          <!-- Big play overlay (shown before first play) -->
+          <div class="vplay-overlay" id="vPlayOverlay">
+            <div class="vplay-overlay-ring"></div>
+            <button class="vplay-big-btn" id="vPlayBigBtn" aria-label="Play video">
+              <span>▶</span>
+            </button>
+            <p class="vplay-hint">Play your special video</p>
+          </div>
+
+          <!-- Placeholder shown when no video file is present -->
+          <div class="vplayer-placeholder" id="vPlaceholder">
+            <span class="vplaceholder-icon">🎬</span>
+            <p class="vplaceholder-text">Add your video here</p>
+            <p class="vplaceholder-path">video/stella-video.mp4</p>
+          </div>
+        </div>
+
+        <!-- Custom Controls Bar -->
+        <div class="vcontrols" id="vControls">
+
+          <!-- Progress / Seek Bar -->
+          <div class="vprogress-wrap">
+            <div class="vprogress-track" id="vProgressTrack">
+              <div class="vprogress-buffer" id="vBuffer"></div>
+              <div class="vprogress-fill"   id="vFill"></div>
+              <div class="vprogress-thumb"  id="vThumb"></div>
+            </div>
+          </div>
+
+          <!-- Bottom row -->
+          <div class="vcontrols-row">
+            <!-- Left: play + skip + time -->
+            <div class="vctrl-left">
+              <button class="vctrl-btn" id="vRewind" aria-label="Rewind 10s">⟪</button>
+              <button class="vctrl-btn vctrl-play" id="vPlayBtn" aria-label="Play/Pause">▶</button>
+              <button class="vctrl-btn" id="vForward" aria-label="Forward 10s">⟫</button>
+              <span class="vtime" id="vTime">0:00 / 0:00</span>
+            </div>
+
+            <!-- Right: volume + fullscreen -->
+            <div class="vctrl-right">
+              <button class="vctrl-btn" id="vMuteBtn" aria-label="Mute">🔊</button>
+              <input type="range" id="vVolSlider" class="volume-slider" min="0" max="1" step="0.05" value="0.8" />
+              <button class="vctrl-btn" id="vFullscreen" aria-label="Fullscreen">⛶</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Caption below video -->
+      <p class="vplayer-caption">
+        <!-- ✏️ Change this caption to whatever you like -->
+        "Every second of this was worth it." 💕
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <p class="footer-text">
+        Made with <span class="heart-pulse">❤️</span> for Stella ✨
+      </p>
+      <p class="footer-sub">Happy Birthday, you magical human. 🌙</p>
+    </div>
+    <!--
+      ════════════════════════════════════════
+      🚀 GITHUB PAGES HOSTING INSTRUCTIONS:
+      ════════════════════════════════════════
+      1. Create a new repository on GitHub (e.g. "stella-birthday")
+      2. Upload ALL files maintaining this folder structure:
+         /index.html
+         /style.css
+         /script.js
+         /images/photo1.jpg  ← your photos go here
+         /images/photo2.jpg
+         /video/stella-video.mp4  ← your video goes here
+         /video/stella-poster.jpg ← optional thumbnail
+      3. Go to your repo → Settings → Pages
+      4. Under "Source" select: Deploy from a branch → main → / (root)
+      5. Click Save. Your site will be live at:
+         https://YOUR-USERNAME.github.io/stella-birthday/
+      ════════════════════════════════════════
+    -->
+  </footer>
+
+  <!-- Back to Top button -->
+  <button class="back-to-top hidden" id="backToTop" aria-label="Back to top">
+    <span>↑</span>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
