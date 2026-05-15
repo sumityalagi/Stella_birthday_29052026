@@ -5,29 +5,127 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday Stella 💖</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Google Fonts: Cormorant Garamond (display) + Dancing Script (letter) + Jost (body) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Dancing+Script:wght@400;600;700&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    #passwordGate {
+      position: fixed;
+      inset: 0;
+      background: #0a0612;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      font-family: 'Jost', sans-serif;
+    }
+    #passwordGate .gate-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,180,220,0.2);
+      border-radius: 20px;
+      padding: 48px 40px;
+      text-align: center;
+      max-width: 360px;
+      width: 90%;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 0 60px rgba(220,100,180,0.15);
+    }
+    #passwordGate .gate-icon { font-size: 2.8rem; margin-bottom: 12px; }
+    #passwordGate h2 {
+      color: #f5c6e0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem;
+      font-weight: 300;
+      margin: 0 0 6px;
+    }
+    #passwordGate p {
+      color: rgba(245,198,224,0.55);
+      font-size: 0.82rem;
+      letter-spacing: 0.05em;
+      margin: 0 0 28px;
+    }
+    #passwordGate input {
+      width: 100%;
+      box-sizing: border-box;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,180,220,0.3);
+      border-radius: 10px;
+      padding: 13px 16px;
+      color: #f5c6e0;
+      font-family: 'Jost', sans-serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      text-align: center;
+      outline: none;
+      margin-bottom: 16px;
+      transition: border-color 0.3s;
+    }
+    #passwordGate input:focus { border-color: rgba(255,180,220,0.7); }
+    #passwordGate button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #e87dbf, #c45fa0);
+      color: #fff;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    #passwordGate button:hover { opacity: 0.9; transform: translateY(-1px); }
+    #passwordGate .gate-error {
+      color: #ff8ab5;
+      font-size: 0.78rem;
+      margin-top: 10px;
+      min-height: 16px;
+      letter-spacing: 0.04em;
+    }
+    #passwordGate .gate-shake {
+      animation: gateShake 0.4s ease;
+    }
+    @keyframes gateShake {
+      0%,100% { transform: translateX(0); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(5px); }
+    }
+
+    .no-select {
+      -webkit-user-select: none !important;
+      -moz-user-select: none !important;
+      -ms-user-select: none !important;
+      user-select: none !important;
+    }
+    img {
+      -webkit-user-drag: none;
+      user-drag: none;
+      pointer-events: none;
+    }
+    img.interactive-img { pointer-events: auto; }
+  </style>
 </head>
-<body>
+<body class="no-select">
 
-  <!-- ═══════════════════════════════════════════════════
-       PARTICLE CANVAS (Stars + Hearts background)
-  ════════════════════════════════════════════════════ -->
+  <div id="passwordGate">
+    <div class="gate-box" id="gateBox">
+      <div class="gate-icon">🔐</div>
+      <h2>This page is private</h2>
+      <p>Enter the secret key to continue</p>
+      <input type="password" id="gateInput" placeholder="••••••••" maxlength="20" autocomplete="off" />
+      <button id="gateSubmit">Unlock ✦</button>
+      <div class="gate-error" id="gateError"></div>
+    </div>
+  </div>
+
   <canvas id="particleCanvas"></canvas>
-
-  <!-- ═══════════════════════════════════════════════════
-       CONFETTI CANVAS (fires when surprise is opened)
-  ════════════════════════════════════════════════════ -->
   <canvas id="confettiCanvas"></canvas>
 
-  <!-- No background music — video section handles media -->
-
-  <!-- ═══════════════════════════════════════════════════
-       NAVIGATION
-  ════════════════════════════════════════════════════ -->
   <nav class="nav" id="navbar">
     <div class="nav-brand">✦ Stella ✦</div>
     <ul class="nav-links">
@@ -40,9 +138,6 @@
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
   </nav>
 
-  <!-- ═══════════════════════════════════════════════════
-       SECTION 1 — HERO
-  ════════════════════════════════════════════════════ -->
   <section id="hero" class="hero">
     <div class="hero-content">
       <p class="hero-eyebrow reveal-up">✦ &nbsp; A little corner of the internet &nbsp; ✦</p>
@@ -59,23 +154,16 @@
         </button>
       </div>
     </div>
-
-    <!-- Decorative floating orbs -->
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
     <div class="orb orb-3"></div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════
-       SECTION 2 — COUNTDOWN TIMER
-  ════════════════════════════════════════════════════ -->
   <section id="countdown" class="countdown-section section-pad">
     <div class="section-header">
       <p class="section-tag">✦ marking the moments ✦</p>
       <h2 class="section-title">Until Your Special Day</h2>
     </div>
-
-    <!-- Normal countdown display -->
     <div class="countdown-grid" id="countdownGrid">
       <div class="glass-card countdown-card">
         <span class="count-num" id="days">00</span>
@@ -98,69 +186,12 @@
         <div class="card-glow"></div>
       </div>
     </div>
-
-    <!-- Birthday message (shown when countdown hits zero) -->
     <div class="birthday-message hidden" id="birthdayMessage">
       <div class="bday-glow-ring"></div>
-      <h2 class="bday-text"> Happy Birthday Stella 🎉</h2>
-      ```html
-<section id="letter" class="letter-section section-pad">
-  <div class="section-header">
-    <p class="section-tag">✦ from the heart ✦</p>
-    <h2 class="section-title">A Letter For You</h2>
-  </div>
-
-  <div class="letter-wrapper">
-    <div class="letter-paper glass-card">
-      <div class="letter-deco-top">✦ &ensp; ✦ &ensp; ✦</div>
-
-      <p class="letter-date">May 29th, 2026</p>
-
-      <p class="letter-greeting">My dearest Stella,</p>
-
-      <p class="letter-body">
-        Happy Birthday, you magical human. ❤️  
-        Today is not just about celebrating your birthday,
-        but also celebrating the beautiful 10 years of friendship we’ve shared together.
-        It still feels unreal that we first met back in 2016 during our engineering days at WIT Solapur,
-        and somehow those college memories became one of the most precious parts of my life.
-      </p>
-
-      <p class="letter-body">
-        From assignments, lectures, random jokes, late-night talks,
-        and all the chaos in between — every moment became special because you were part of it.
-        Through every phase of life, one thing that never changed was our friendship.
-        You’ve been my comfort, my happiness, and one of the few people who truly understands me without words.
-      </p>
-
-      <p class="letter-body">
-        As you step into this new chapter and celebrate your 30th birthday,
-        I just want you to know how grateful I am to have you in my life.
-        You deserve every beautiful thing this world has to offer —
-        endless happiness, peace, success, love, and all the dreams your heart quietly wishes for.
-      </p>
-
-      <p class="letter-body">
-        Thank you for being such a kind, genuine, and wonderful person.
-        Thank you for every memory we created over these ten years.
-        No matter how much life changes,
-        you will always be one of the most special people in my life.
-      </p>
-
-      <p class="letter-closing">
-        Keep shining, keep dreaming,
-        and keep being the magical human you are.
-      </p>
-      <p class="letter-signature">
-        With love always,<br>
-        Sumit ❤️
-      </p>
+      <h2 class="bday-text">🎉 Happy Birthday Stella 🎉</h2>
     </div>
-  </div>
-</section>
-  <!-- ═══════════════════════════════════════════════════
-       SECTION 3 — MEMORY GALLERY
-  ════════════════════════════════════════════════════ -->
+  </section>
+
   <section id="gallery" class="gallery-section section-pad">
     <div class="section-header">
       <p class="section-tag">✦ our story ✦</p>
@@ -169,93 +200,90 @@
     </div>
 
     <div class="gallery-grid">
-            
-<div class="photo-card" data-src="images/test.jpg" data-caption="Our Favorite Memory">
-  <div class="photo-placeholder">
-    <img src="images/test.jpg" alt="Our Favorite Memory">
-  </div>
-  <div class="photo-overlay">
-    <p class="photo-caption">Our Favorite Memory</p>
-  </div>
-</div>
 
-<div class="photo-card featured" data-src="images/Photo1.jpeg" data-caption="Childhood photo">
-  <div class="photo-placeholder">
-    <img src="images/Photo1.jpeg" alt="That Funny Day">
-  </div>
-  <div class="photo-overlay">
-    <p class="photo-caption">That Childhood photo 😂</p>
-  </div>
-</div>
+      <div class="photo-card" data-src="images/test.jpg" data-caption="Our Favorite Memory">
+        <div class="photo-placeholder">
+          <img src="images/test.jpg" alt="" draggable="false" />
+        </div>
+        <div class="photo-overlay">
+          <p class="photo-caption">Our Favorite Memory</p>
+        </div>
+      </div>
 
-<div class="photo-card" data-src="images/photo2.jpeg" data-caption="Small in size, huge in happiness 🌸💖">
-  <div class="photo-placeholder">
-    <img src="images/photo2.jpeg" alt="Small in size, huge in happiness 🌸💖">
-  </div>
-  <div class="photo-overlay">
-    <p class="photo-caption">Small in size, huge in happiness 🌸💖 💫</p>
-  </div>
-</div>
+      <div class="photo-card featured" data-src="images/Photo1.jpeg" data-caption="Childhood photo">
+        <div class="photo-placeholder">
+          <img src="images/Photo1.jpeg" alt="" draggable="false" />
+        </div>
+        <div class="photo-overlay">
+          <p class="photo-caption">That Childhood photo 😂</p>
+        </div>
+      </div>
 
-<div class="photo-card" data-src="images/test.jpg" data-caption="The Best Nights">
-  <div class="photo-placeholder">
-    <img src="images/test.jpg" alt="The Best Nights">
-  </div>
-  <div class="photo-overlay">
-    <p class="photo-caption">The Best Nights 🌙</p>
-  </div>
-</div>
+      <div class="photo-card" data-src="images/photo2.jpeg" data-caption="Small in size, huge in happiness 🌸💖">
+        <div class="photo-placeholder">
+          <img src="images/photo2.jpeg" alt="" draggable="false" />
+        </div>
+        <div class="photo-overlay">
+          <p class="photo-caption">Small in size, huge in happiness 🌸💖 💫</p>
+        </div>
+      </div>
 
-<div class="photo-card" data-src="images/test.jpg" data-caption="Pure Happiness">
-  <div class="photo-placeholder">
-    <img src="images/test.jpg" alt="Pure Happiness">
-  </div>
-  <div class="photo-overlay">
-    <p class="photo-caption">Pure Happiness ✨</p>
-  </div>
-</div>
+      <div class="photo-card" data-src="images/test.jpg" data-caption="The Best Nights">
+        <div class="photo-placeholder">
+          <img src="images/test.jpg" alt="" draggable="false" />
+        </div>
+        <div class="photo-overlay">
+          <p class="photo-caption">The Best Nights 🌙</p>
+        </div>
+      </div>
 
-<div class="photo-card featured" data-src="images/photo6.jpg" data-caption="Us, Always">
-  <div class="photo-placeholder">
-    <img src="images/test.jpg" alt="Us, Always">
-  </div>
-  <div class="photo-overlay">
-    <p class="photo-caption">Us, Always 💕</p>
-  </div>
-</div>
+      <div class="photo-card" data-src="images/test.jpg" data-caption="Pure Happiness">
+        <div class="photo-placeholder">
+          <img src="images/test.jpg" alt="" draggable="false" />
+        </div>
+        <div class="photo-overlay">
+          <p class="photo-caption">Pure Happiness ✨</p>
+        </div>
+      </div>
 
-<div class="photo-card" data-src="images/test.jpg" data-caption="Laughing Until We Cried">
-  <div class="photo-placeholder">
-    <img src="images/test.jpg" alt="Laughing Until We Cried">
-  </div>
-  <div class="photo-overlay">
-    <p class="photo-caption">Laughing Until We Cried 🤣</p>
-  </div>
-</div>
+      <div class="photo-card featured" data-src="images/photo6.jpg" data-caption="Us, Always">
+        <div class="photo-placeholder">
+          <img src="images/test.jpg" alt="" draggable="false" />
+        </div>
+        <div class="photo-overlay">
+          <p class="photo-caption">Us, Always 💕</p>
+        </div>
+      </div>
 
-<div class="photo-card" data-src="images/test.jpg" data-caption="A Perfect Day">
-  <div class="photo-placeholder">
-    <img src="images/test.jpg" alt="A Perfect Day">
-  </div>
-  <div class="photo-overlay">
-    <p class="photo-caption">A Perfect Day 🌸</p>
-  </div>
-</div>
+      <div class="photo-card" data-src="images/test.jpg" data-caption="Laughing Until We Cried">
+        <div class="photo-placeholder">
+          <img src="images/test.jpg" alt="" draggable="false" />
+        </div>
+        <div class="photo-overlay">
+          <p class="photo-caption">Laughing Until We Cried 🤣</p>
+        </div>
+      </div>
 
+      <div class="photo-card" data-src="images/test.jpg" data-caption="A Perfect Day">
+        <div class="photo-placeholder">
+          <img src="images/test.jpg" alt="" draggable="false" />
+        </div>
+        <div class="photo-overlay">
+          <p class="photo-caption">A Perfect Day 🌸</p>
+        </div>
+      </div>
 
-    <!-- Lightbox -->
+    </div>
+
     <div class="lightbox hidden" id="lightbox">
       <button class="lightbox-close" id="lightboxClose">✕</button>
       <div class="lightbox-inner">
-        <img src="" alt="" id="lightboxImg" />
+        <img src="" alt="" id="lightboxImg" draggable="false" />
         <p class="lightbox-caption" id="lightboxCaption"></p>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════
-       SECTION 4 — LETTER
-  ════════════════════════════════════════════════════ -->
   <section id="letter" class="letter-section section-pad">
     <div class="section-header">
       <p class="section-tag">✦ from the heart ✦</p>
@@ -271,47 +299,48 @@
         <p class="letter-greeting">My dearest Stella,</p>
 
         <p class="letter-body">
-          Where do I even begin? Some people come into your life and quietly rearrange everything —
-          they become the soundtrack to your best days, the voice on the other end of the phone at 2am,
-          the person who knows what you mean before you finish your sentence.
-          That's you, Stella. That has always been you.
+          Happy Birthday, you magical human. ❤️
+          Today is not just about celebrating your birthday,
+          but also celebrating the beautiful 10 years of friendship we've shared together.
+          It still feels unreal that we first met back in 2016 during our engineering days at WIT Solapur,
+          and somehow those college memories became one of the most precious parts of my life.
         </p>
 
         <p class="letter-body">
-          I think about all the moments we've shared — the ridiculous ones, the serious ones,
-          the ones where we laughed until breathing felt optional — and I feel so incredibly lucky
-          that the universe decided we should find each other. Not everyone gets a friend like you.
-          I know how rare this is.
+          From assignments, lectures, random jokes, late-night talks,
+          and all the chaos in between — every moment became special because you were part of it.
+          Through every phase of life, one thing that never changed was our friendship.
+          You've been my comfort, my happiness, and one of the few people who truly understands me without words.
         </p>
 
         <p class="letter-body">
-          So on this birthday, I want you to know something, truly:
-          you are one of the most beautiful, brilliant, and kind souls I have ever met.
-          The world is genuinely better with you in it. <em>I</em> am better with you in it.
+          As you step into this new chapter and celebrate your 30th birthday,
+          I just want you to know how grateful I am to have you in my life.
+          You deserve every beautiful thing this world has to offer —
+          endless happiness, peace, success, love, and all the dreams your heart quietly wishes for.
         </p>
 
         <p class="letter-body">
-          May this year bring you everything your heart has quietly been wishing for.
-          May you be surprised, celebrated, and loved beyond measure.
-          And may you always, always know how deeply you are cherished.
+          Thank you for being such a kind, genuine, and wonderful person.
+          Thank you for every memory we created over these ten years.
+          No matter how much life changes,
+          you will always be one of the most special people in my life.
         </p>
 
         <p class="letter-closing">
-          With all my love, always,
+          Keep shining, keep dreaming,
+          and keep being the magical human you are.
         </p>
         <p class="letter-signature">
-          Sumit💖
+          With love always,<br>
+          Sumit ❤️
         </p>
-        
 
         <div class="letter-deco-bottom">✦ &ensp; ✦ &ensp; ✦</div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════
-       SECTION 5 — VIDEO PLAYER
-  ════════════════════════════════════════════════════ -->
   <section id="player" class="player-section section-pad">
     <div class="section-header">
       <p class="section-tag">✦ a moment in time ✦</p>
@@ -321,18 +350,6 @@
 
     <div class="vplayer-wrapper">
       <div class="vplayer-card glass-card">
-
-        <!--
-          🎬 VIDEO SETUP:
-          1. Create a folder called "video" next to index.html
-          2. Add your video file and rename it to: stella-video.mp4
-          3. Optionally add a poster image: video/stella-poster.jpg
-             (shown as thumbnail before the video plays)
-          Supported formats: .mp4 (recommended), .webm
-          Full path: video/stella-video.mp4
-        -->
-
-        <!-- Video element -->
         <div class="vplayer-screen-wrap" id="vScreenWrap">
           <video
             id="stellaVideo"
@@ -340,12 +357,12 @@
             preload="metadata"
             poster="video/stella-poster.jpg"
             playsinline
+            controlsList="nodownload nofullscreen noremoteplayback"
+            disablePictureInPicture
           >
             <source src="video/stella-video.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-
-          <!-- Big play overlay (shown before first play) -->
           <div class="vplay-overlay" id="vPlayOverlay">
             <div class="vplay-overlay-ring"></div>
             <button class="vplay-big-btn" id="vPlayBigBtn" aria-label="Play video">
@@ -353,38 +370,27 @@
             </button>
             <p class="vplay-hint">Play your special video</p>
           </div>
-
-          <!-- Placeholder shown when no video file is present -->
           <div class="vplayer-placeholder" id="vPlaceholder">
             <span class="vplaceholder-icon">🎬</span>
             <p class="vplaceholder-text">Add your video here</p>
             <p class="vplaceholder-path">video/stella-video.mp4</p>
           </div>
         </div>
-
-        <!-- Custom Controls Bar -->
         <div class="vcontrols" id="vControls">
-
-          <!-- Progress / Seek Bar -->
           <div class="vprogress-wrap">
             <div class="vprogress-track" id="vProgressTrack">
               <div class="vprogress-buffer" id="vBuffer"></div>
-              <div class="vprogress-fill"   id="vFill"></div>
-              <div class="vprogress-thumb"  id="vThumb"></div>
+              <div class="vprogress-fill" id="vFill"></div>
+              <div class="vprogress-thumb" id="vThumb"></div>
             </div>
           </div>
-
-          <!-- Bottom row -->
           <div class="vcontrols-row">
-            <!-- Left: play + skip + time -->
             <div class="vctrl-left">
               <button class="vctrl-btn" id="vRewind" aria-label="Rewind 10s">⟪</button>
               <button class="vctrl-btn vctrl-play" id="vPlayBtn" aria-label="Play/Pause">▶</button>
               <button class="vctrl-btn" id="vForward" aria-label="Forward 10s">⟫</button>
               <span class="vtime" id="vTime">0:00 / 0:00</span>
             </div>
-
-            <!-- Right: volume + fullscreen -->
             <div class="vctrl-right">
               <button class="vctrl-btn" id="vMuteBtn" aria-label="Mute">🔊</button>
               <input type="range" id="vVolSlider" class="volume-slider" min="0" max="1" step="0.05" value="0.8" />
@@ -392,35 +398,87 @@
             </div>
           </div>
         </div>
-
       </div>
-
-      <!-- Caption below video -->
-      <p class="vplayer-caption">
-        <!-- ✏️ Change this caption to whatever you like -->
-        "Every second of this was worth it." 💕
-      </p>
+      <p class="vplayer-caption">"Every second of this was worth it." 💕</p>
     </div>
   </section>
 
-  <!-- ═══════════════════════════════════════════════════
-       FOOTER
-  ════════════════════════════════════════════════════ -->
   <footer class="footer">
     <div class="footer-inner">
       <p class="footer-text">
         Made with <span class="heart-pulse">❤️</span> for Stella ✨
       </p>
-      <p class="footer-sub">To many more years of laughter, memories, and friendship.❤️</p>
+      <p class="footer-sub">To many more years of laughter, memories, and friendship. ❤️</p>
     </div>
-
   </footer>
 
-  <!-- Back to Top button -->
   <button class="back-to-top hidden" id="backToTop" aria-label="Back to top">
     <span>↑</span>
   </button>
 
   <script src="script.js"></script>
+
+  <script>
+    (function () {
+      const CORRECT = "29052026";
+      const SESSION_KEY = "stella_unlocked";
+
+      const gate = document.getElementById("passwordGate");
+      const input = document.getElementById("gateInput");
+      const submitBtn = document.getElementById("gateSubmit");
+      const errorEl = document.getElementById("gateError");
+      const gateBox = document.getElementById("gateBox");
+
+      function unlock() {
+        sessionStorage.setItem(SESSION_KEY, "1");
+        gate.style.transition = "opacity 0.6s ease";
+        gate.style.opacity = "0";
+        setTimeout(() => gate.remove(), 700);
+      }
+
+      function tryPassword() {
+        if (input.value.trim() === CORRECT) {
+          unlock();
+        } else {
+          errorEl.textContent = "Incorrect password. Try again.";
+          input.value = "";
+          gateBox.classList.remove("gate-shake");
+          void gateBox.offsetWidth;
+          gateBox.classList.add("gate-shake");
+        }
+      }
+
+      if (sessionStorage.getItem(SESSION_KEY) === "1") {
+        gate.remove();
+      } else {
+        submitBtn.addEventListener("click", tryPassword);
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Enter") tryPassword();
+        });
+      }
+
+      document.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+      document.addEventListener("keydown", function (e) {
+        if (
+          e.key === "PrintScreen" ||
+          (e.ctrlKey && ["c", "u", "s", "a", "p"].includes(e.key.toLowerCase())) ||
+          (e.metaKey && ["c", "u", "s", "a", "p"].includes(e.key.toLowerCase())) ||
+          e.key === "F12"
+        ) {
+          e.preventDefault();
+        }
+      });
+      document.addEventListener("copy", function (e) { e.preventDefault(); });
+      document.addEventListener("cut", function (e) { e.preventDefault(); });
+      document.addEventListener("dragstart", function (e) {
+        if (e.target.tagName === "IMG") e.preventDefault();
+      });
+
+      var style = document.createElement("style");
+      style.textContent = "* { -webkit-user-select: none !important; user-select: none !important; }";
+      document.head.appendChild(style);
+    })();
+  </script>
+
 </body>
 </html>
